@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ksai"
+version = "0.1.0"
+description = "Kickstarter AI-disclosure and social inclusion study pipeline"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0,<4",
+    "numpy>=1.24,<3",
+    "pyarrow>=14",
+    "curl_cffi>=0.7",
+    "beautifulsoup4>=4.12",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+]
+
+[project.optional-dependencies]
+# Content strand: figures for the dictionary analysis.
+analysis = [
+    "matplotlib>=3.8",
+]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "pandas-stubs>=2.0",
+    "pre-commit>=3.7",
+]
+
+[tool.setuptools]
+packages = ["ksai"]
+
+[tool.setuptools.package-data]
+ksai = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --cov=ksai --cov-report=term-missing --cov-fail-under=90"
+
+[tool.coverage.run]
+source = ["ksai"]
+omit = ["ksai/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["ksai"]
+ignore_missing_imports = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true

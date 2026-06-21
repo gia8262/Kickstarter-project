@@ -1,0 +1,32 @@
+2# --- data (kept out of version control on personal-data grounds) ---
+# Raw dumps, scraped pages, per-project disclosure text, and the working
+# pipeline outputs all live under data/ and are never committed. The aggregate
+# result tables and figures are published separately under results/.
+data/
+*.parquet
+*.jsonl
+
+# --- secrets ---
+.env
+
+# --- Python build / cache artifacts ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- environments ---
+.venv/
+venv/
+
+# --- editors / OS / local tooling ---
+.idea/
+.vscode/
+.DS_Store
+.claude/settings.local.json

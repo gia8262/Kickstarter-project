@@ -1,0 +1,24 @@
+# Exact versions this pipeline was built, run, and tested against, for
+# reproducibility. `pip install -e .` resolves the looser ranges in
+# pyproject.toml; install from this file (`pip install -r requirements.txt`)
+# to reproduce the stack that produced the committed results.
+
+# --- core runtime: frame, sampling, collection, analysis ---
+pandas==3.0.3
+numpy==2.4.6
+pyarrow==24.0.0
+curl_cffi==0.15.0
+beautifulsoup4==4.15.0
+scipy==1.17.1
+statsmodels==0.14.6
+
+# --- content strand: figures ---
+matplotlib==3.10.9
+
+# --- quality gate (lint, types, tests, hooks) ---
+pytest==9.0.3
+pytest-cov==7.1.0
+ruff==0.15.16
+mypy==2.1.0
+pandas-stubs==3.0.3.260530
+pre-commit==4.6.0
