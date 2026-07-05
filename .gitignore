@@ -1,10 +1,13 @@
-2# --- data (kept out of version control on personal-data grounds) ---
+# --- data (kept out of version control on personal-data grounds) ---
 # Raw dumps, scraped pages, per-project disclosure text, and the working
 # pipeline outputs all live under data/ and are never committed. The aggregate
 # result tables and figures are published separately under results/.
 data/
 *.parquet
 *.jsonl
+
+# --- thesis / paper write-up (keep the manuscript out of the public repo) ---
+*.pdf
 
 # --- secrets ---
 .env

@@ -159,10 +159,82 @@ def test_charts_write_files(tmp_path, merged_labels):
     )
     written = [
         *charts.plot_output_type_distribution(dist, tmp_path),
+        *charts.plot_output_type_pie(dist, tmp_path),
         *charts.plot_output_type_by_region(crosstab, tmp_path),
         *charts.plot_success_by_output_type(outcomes, tmp_path),
         *charts.plot_top_tools(freq, tmp_path),
         *charts.plot_prevalence_by_quarter(prevalence, tmp_path),
+    ]
+    assert len(written) == 12  # 6 charts x (png + svg)
+    for path in written:
+        assert path.exists() and path.stat().st_size > 0
+    assert {p.suffix for p in written} == {".png", ".svg"}
+
+
+def test_structural_charts_write_files(tmp_path):
+    region = pd.DataFrame(
+        {
+            "english_majority": [0, 1],
+            "n": [3050, 8973],
+            "ai_n": [519, 1046],
+            "disclosure_rate": [0.170, 0.117],
+            "rate_ci_lo": [0.157, 0.110],
+            "rate_ci_hi": [0.184, 0.123],
+            "representation_ratio": [1.31, 0.90],
+            "success_ai": [0.559, 0.485],
+            "success_other": [0.703, 0.713],
+            "success_gap": [-0.145, -0.228],
+        }
+    )
+    experience = pd.DataFrame(
+        {
+            "first_time": [0, 1],
+            "n": [5146, 6877],
+            "ai_n": [556, 1009],
+            "disclosure_rate": [0.108, 0.147],
+            "rate_ci_lo": [0.100, 0.139],
+            "rate_ci_hi": [0.117, 0.155],
+            "representation_ratio": [0.83, 1.13],
+            "success_ai": [0.827, 0.334],
+            "success_other": [0.869, 0.586],
+            "success_gap": [-0.042, -0.252],
+        }
+    )
+    overall = pd.DataFrame(
+        {
+            "outcome": ["success", "pledged_usd"],
+            "median_ai": [0.509, 1006.0],
+            "median_other": [0.710, 2819.0],
+            "effect": [0.42, -0.22],
+            "effect_name": ["odds_ratio", "cliffs_delta"],
+        }
+    )
+    matched = overall.assign(
+        median_ai=[0.511, 1010.0], median_other=[0.681, 3060.0], effect=[0.49, -0.24]
+    )
+    balance = pd.DataFrame(
+        {
+            "covariate": ["log_goal", "duration_days", "english_majority", "first_time"],
+            "smd_before": [0.087, 0.090, -0.199, 0.172],
+            "smd_after": [-0.016, 0.005, -0.015, -0.037],
+        }
+    )
+    prevalence = pd.DataFrame(
+        {
+            "category": ["Technology", "Games", "Music", "Dance"],
+            "n": [1224, 2529, 717, 35],
+            "ai_n": [397, 467, 30, 0],
+            "rate": [0.324, 0.185, 0.042, 0.0],
+            "ci_lo": [0.299, 0.170, 0.029, 0.0],
+            "ci_hi": [0.351, 0.200, 0.059, 0.099],
+        }
+    )
+    written = [
+        *charts.plot_prevalence_by_category(prevalence, tmp_path),
+        *charts.plot_disclosure_uptake(region, experience, tmp_path),
+        *charts.plot_disclosure_penalty(region, experience, tmp_path),
+        *charts.plot_matching_balance(balance, tmp_path),
+        *charts.plot_outcome_penalty(overall, matched, tmp_path),
     ]
     assert len(written) == 10  # 5 charts x (png + svg)
     for path in written:

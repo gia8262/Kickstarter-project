@@ -18,6 +18,13 @@ per-project rows.
 - `inclusion_region.csv`, `inclusion_experience.csv` — the inclusion splits.
 - `matching_balance.csv`, `outcomes_matched.csv` — the propensity-matching
   balance check and the matched comparison.
+- `figures/` — the structural / inclusion figures for the appendix, one chart per
+  file as PNG (150 dpi) and SVG: `prevalence_by_category` (disclosure rate per
+  category), `disclosure_uptake_by_group` and `disclosure_penalty_by_group` (the
+  region/experience access-and-outcome inclusion layer), `outcome_penalty_matched`
+  (success before and after matching), and `matching_balance_love` (the covariate
+  love plot). Each is drawn from the tables above in the same run, so the figures
+  always match the CSVs.
 
 `run_06_content.py` writes the dictionary content-analysis tables and figures:
 

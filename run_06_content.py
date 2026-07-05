@@ -123,6 +123,9 @@ def main() -> None:
     n_val = write_validation_sample(labelled, df)
 
     charts.plot_output_type_distribution(dist, FIGURES)
+    charts.plot_output_type_pie(
+        dist, FIGURES
+    )  # alternative format; multi-label caveat in the figure
     charts.plot_output_type_by_region(by_region, FIGURES)
     charts.plot_success_by_output_type(outcomes[outcomes["label"] != extract.UNCLASSIFIED], FIGURES)
     charts.plot_top_tools(freq, FIGURES)

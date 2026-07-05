@@ -7,4 +7,3 @@ from ksai import config, synthetic
 if __name__ == "__main__":
     synthetic.generate(config)
     print("Wrote synthetic dumps to data/raw and data/archive")
-1
